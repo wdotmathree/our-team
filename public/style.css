@@ -1,5 +1,5 @@
-div.bubble {
-  border-radius: 100%;
+.node-image {
+	z-index: 2;
 }
 
 /*# sourceMappingURL=style.css.map */
