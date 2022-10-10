@@ -7,6 +7,14 @@
 	}
 }
 
+.node circle {
+	transition: all 0.1s ease-in-out;
+}
+
+.node text {
+	pointer-events: none;
+}
+
 .circle-image {
 	transition: filter 0.5s ease-in-out;
 	animation: fade 1s ease-in-out;
