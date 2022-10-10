@@ -1,42 +1,58 @@
-[
-	{
-		"label": "Alice",
-		"value": 1,
-		"img": "https://picsum.photos/200"
-	},
-	{
-		"label": "Alice",
-		"value": 1,
-		"img": "https://picsum.photos/200"
-	},
-	{
-		"label": "Alice",
-		"value": 1,
-		"img": "https://picsum.photos/200"
-	},
-	{
-		"label": "Alice",
-		"value": 1,
-		"img": "https://picsum.photos/200"
-	},
-	{
-		"label": "Bob",
-		"value": 1,
-		"img": "https://picsum.photos/200"
-	},
-	{
-		"label": "Bob",
-		"value": 1,
-		"img": "https://picsum.photos/200"
-	},
-	{
-		"label": "Bob",
-		"value": 1,
-		"img": "https://picsum.photos/200"
-	},
-	{
-		"label": "Bob",
-		"value": 1,
-		"img": "https://picsum.photos/200"
+{
+	"people": [
+		{
+			"label": "Luke McKenna",
+			"description": "Luke McKenna is the UX Designer & UI Developer",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Nathan Kade",
+			"description": "Nathan Kade is the SQL Developer",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Alejandro June",
+			"description": "Alejandro June is the Web Designer",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Sophie Perez",
+			"description": "Sophie Perez is the Web Developer",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Samantha Ellis",
+			"description": "Samantha Ellis is the Help Desk Worker/Desktop Support",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Elise Lopez",
+			"description": "Elise Lopez is the Software Engineer",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Leonardo Taylor",
+			"description": "Leonardo Taylor is the Data Entry",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Jordan Hernandez",
+			"description": "Jordan Hernandez is the DevOps Engineer",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Mackenzie Jones",
+			"description": "Mackenzie Jones is the Network Administrator",
+			"img": "https://picsum.photos/200"
+		},
+		{
+			"label": "Vanessa Ellis",
+			"description": "Vanessa Ellis is the Cloud Architect",
+			"img": "https://picsum.photos/200"
+		}
+	],
+	"defaults": {
+		"name": "Click on a person to see a description.",
+		"description": ""
 	}
-]
+}

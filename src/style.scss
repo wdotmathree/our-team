@@ -1,0 +1,42 @@
+@keyframes fade {
+	from {
+		filter: brightness(0) blur(10px);
+	}
+	to {
+		filter: brightness(0.7) blur(2px);
+	}
+}
+
+.circle-image {
+	transition: filter 0.5s ease-in-out;
+	animation: fade 1s ease-in-out;
+	filter: brightness(0.7) blur(2px);
+	animation-fill-mode: backwards;
+}
+
+.circle-image:hover, .selected {
+	filter: brightness(1) blur(0);
+}
+
+div {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	overflow: hidden;
+}
+
+#root > div {
+	display: flex;
+	flex-direction: row;
+
+}
+
+.info-bar {
+	text-align: center;
+	flex-grow: 2;
+	p {
+		text-align: left;
+	}
+}

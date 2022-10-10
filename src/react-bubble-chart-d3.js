@@ -11,6 +11,10 @@ export default class BubbleChart extends Component {
 		this.renderBubbles = this.renderBubbles.bind(this);
 	}
 
+	shouldComponentUpdate() {
+		return false;
+	}
+
 	componentDidMount() {
 		this.svg = ReactDOM.findDOMNode(this);
 		this.renderChart();
@@ -30,11 +34,11 @@ export default class BubbleChart extends Component {
 	}
 
 	renderChart() {
-		const { graph, data, width, padding, showLegend, legendPercentage } = this.props;
+		const { graph, data, width, padding } = this.props;
 		// Reset the svg element to a empty state.
 		this.svg.innerHTML = "";
 
-		const bubblesWidth = showLegend ? width * (1 - legendPercentage / 100) : width;
+		const bubblesWidth = width;
 		const color = d3.scaleOrdinal(d3.schemeCategory20c);
 
 		const pack = d3
@@ -46,10 +50,10 @@ export default class BubbleChart extends Component {
 		const root = d3
 			.hierarchy({ children: data })
 			.sum(function (d) {
-				return d.value;
+				return 1;
 			})
 			.sort(function (a, b) {
-				return b.value - a.value;
+				return 0;
 			})
 			.each((d) => {
 				if (d.data.label) {
@@ -66,7 +70,7 @@ export default class BubbleChart extends Component {
 	}
 
 	renderBubbles(width, nodes, color) {
-		const { graph, bubbleClickFun, valueFont, labelFont } = this.props;
+		const { graph, bubbleClickFun, labelFont } = this.props;
 
 		const bubbleChart = d3
 			.select(this.svg)
@@ -112,28 +116,30 @@ export default class BubbleChart extends Component {
 				return d.data.img;
 			})
 			.attr("width", function (d) {
-				return Math.floor(d.r * 2);
+				return Math.floor(d.r * 2 * 1.04);
 			})
 			.attr("height", function (d) {
-				return Math.floor(d.r * 2);
+				return Math.floor(d.r * 2 * 1.04);
 			})
 			.attr("clip-path", function (d) {
 				return "url(#clip-" + d.id + ")";
 			})
 			.attr("x", function (d) {
-				return -d.r;
+				return -d.r * 1.04;
 			})
 			.attr("y", function (d) {
-				return -d.r;
+				return -d.r * 1.04;
 			})
-			.style("filter", "brightness(0.87)")
-			.style("z-index", 1)
+			.attr("class", "circle-image")
 			.on("mouseover", function (d) {
-				d3.select(this).attr("r", d.r * 1.04);
+				d3.select(this.parentNode)
+					.select("circle")
+					.attr("r", d.r * 1.04);
 			})
 			.on("mouseout", function (d) {
+				if (d3.select(this).attr("class") === "circle-image selected") return;
 				const r = d.r - d.r * 0.04;
-				d3.select(this).attr("r", r);
+				d3.select(this.parentNode).select("circle").attr("r", r);
 			});
 
 		node.append("text")
@@ -175,22 +181,6 @@ export default class BubbleChart extends Component {
 			.attr("y", function (d) {
 				return labelFont.size / 2;
 			});
-
-		// Center the texts inside the circles.
-		d3.selectAll(".value-text")
-			.attr("x", function (d) {
-				const self = d3.select(this);
-				const width = self.node().getBBox().width;
-				return -(width / 2);
-			})
-			.attr("y", function (d) {
-				if (d.hideLabel) {
-					return valueFont.size / 3;
-				} else {
-					return -valueFont.size * 0.5;
-				}
-			});
-
 		node.append("title").text(function (d) {
 			return d.label;
 		});
@@ -214,12 +204,6 @@ BubbleChart.propTypes = {
 		color: PropTypes.string,
 		weight: PropTypes.string,
 	}),
-	valueFont: PropTypes.shape({
-		family: PropTypes.string,
-		size: PropTypes.number,
-		color: PropTypes.string,
-		weight: PropTypes.string,
-	}),
 	labelFont: PropTypes.shape({
 		family: PropTypes.string,
 		size: PropTypes.number,
@@ -229,9 +213,7 @@ BubbleChart.propTypes = {
 };
 BubbleChart.defaultProps = {
 	graph: {
-		zoom: 1.1,
-		offsetX: -0.05,
-		offsetY: -0.01,
+		zoom: 1.0,
 	},
 	width: 1000,
 	height: 800,
@@ -244,22 +226,10 @@ BubbleChart.defaultProps = {
 		color: "#000",
 		weight: "bold",
 	},
-	valueFont: {
-		family: "Arial",
-		size: 16,
-		color: "#fff",
-		weight: "bold",
-	},
 	labelFont: {
 		family: "Arial",
 		size: 11,
 		color: "#fff",
 		weight: "normal",
-	},
-	bubbleClickFun: (label) => {
-		console.log(`Bubble ${label} is clicked ...`);
-	},
-	legendClickFun: (label) => {
-		console.log(`Legend ${label} is clicked ...`);
 	},
 };
